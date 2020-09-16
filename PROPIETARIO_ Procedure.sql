@@ -1,0 +1,68 @@
+create or replace package PROPIETARIO_tapi
+is
+
+type PROPIETARIO_tapi_rec is record (
+CIUDAD  PROPIETARIO.CIUDAD%type
+,IDPROPIETARIO  PROPIETARIO.IDPROPIETARIO%type
+,NOMBRE  PROPIETARIO.NOMBRE%type
+);
+type PROPIETARIO_tapi_tab is table of PROPIETARIO_tapi_rec;
+
+-- insert
+procedure ins (
+p_CIUDAD in PROPIETARIO.CIUDAD%type
+,p_IDPROPIETARIO in PROPIETARIO.IDPROPIETARIO%type
+,p_NOMBRE in PROPIETARIO.NOMBRE%type
+);
+-- update
+procedure upd (
+p_CIUDAD in PROPIETARIO.CIUDAD%type
+,p_IDPROPIETARIO in PROPIETARIO.IDPROPIETARIO%type
+,p_NOMBRE in PROPIETARIO.NOMBRE%type
+);
+-- delete
+procedure del (
+p_IDPROPIETARIO in PROPIETARIO.IDPROPIETARIO%type
+);
+end PROPIETARIO_tapi;
+
+/
+create or replace package body PROPIETARIO_tapi
+is
+-- insert
+procedure ins (
+p_CIUDAD in PROPIETARIO.CIUDAD%type
+,p_IDPROPIETARIO in PROPIETARIO.IDPROPIETARIO%type
+,p_NOMBRE in PROPIETARIO.NOMBRE%type
+) is
+begin
+insert into PROPIETARIO(
+CIUDAD
+,IDPROPIETARIO
+,NOMBRE
+) values (
+p_CIUDAD
+,p_IDPROPIETARIO
+,p_NOMBRE
+);end;
+-- update
+procedure upd (
+p_CIUDAD in PROPIETARIO.CIUDAD%type
+,p_IDPROPIETARIO in PROPIETARIO.IDPROPIETARIO%type
+,p_NOMBRE in PROPIETARIO.NOMBRE%type
+) is
+begin
+update PROPIETARIO set
+CIUDAD = p_CIUDAD
+,NOMBRE = p_NOMBRE
+where IDPROPIETARIO = p_IDPROPIETARIO;
+end;
+-- del
+procedure del (
+p_IDPROPIETARIO in PROPIETARIO.IDPROPIETARIO%type
+) is
+begin
+delete from PROPIETARIO
+where IDPROPIETARIO = p_IDPROPIETARIO;
+end;
+end PROPIETARIO_tapi;
